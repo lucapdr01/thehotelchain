@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+   <meta charset="UTF-8">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <title>Blockbook</title>
+</head>
+<body>
+{% load crispy_forms_tags %}
+  <h1>Search result</h1>
+
+<a href="/logout"><button class="btn logoutbt mybt">Logout</button></a>
+<a href="/"><button class="btn homebt mybt">Home</button></a>
+
+<div class="row">
+  {% for room in rooms %}
+  {% if  city == '' or room.location == city %}
+<div class="feed">
+    <div class="msg">
+            <div class="coln">
+                <h3>{{ room.hotelName }}</h3>
+                {% if room.booked != True %}
+
+                {% if room.stars == 5 %}
+                <img src="{% static 'images/hotel5s.png' %}" id="userimg"/>
+                {% elif room.stars == 4.5 %}
+                 <img src="{% static 'images/hotel4-5s.png' %}" id="userimg"/>
+                {% elif room.stars == 4 %}
+                 <img src="{% static 'images/hotel4s.png' %}" id="userimg"/>
+               {% elif room.stars == 3.5 %}
+                 <img src="{% static 'images/hotel3-5s.png' %}" id="userimg"/>
+               {% elif room.stars == 3 %}
+                 <img src="{% static 'images/hotel3s.png' %}" id="userimg"/>
+                 {% else %}
+                 <img src="{% static 'images/hotels.png' %}" id="userimg"/>
+                {% endif %}
+                {% else %}
+                 {% if room.stars == 5 %}
+                <img src="{% static 'images/hotel5sbooked.png' %}" id="userimg"/>
+                {% elif room.stars == 4.5 %}
+                 <img src="{% static 'images/hotel4-5sbooked.png' %}" id="userimg"/>
+                {% elif room.stars == 4 %}
+                 <img src="{% static 'images/hotel4sbooked.png' %}" id="userimg"/>
+               {% elif room.stars == 3.5 %}
+                 <img src="{% static 'images/hotel3-5sbooked.png' %}" id="userimg"/>
+               {% elif room.stars == 3 %}
+                 <img src="{% static 'images/hotel3sbooked.png' %}" id="userimg"/>
+                 {% else %}
+                 <img src="{% static 'images/hotelsbooked.png' %}" id="userimg"/>
+                {% endif %}
+                {% endif %}
+
+                        <h3><i class="fa fa-bed"></i> x {{ room.people}}</h3>
+                        <h3>{% widthratio room.pricePerNight  1 days %} $</h3>
+                        <h3 style="color: #ffd900;"> {{ room.averageRatings }} &#9733; </h3>
+
+                          <form method="post">
+                              {% csrf_token %}
+                                {{form|crispy}}
+                                <input type="hidden" name="id" value="{{ room.id }}">
+                              {% if room.booked != True %}
+                              <button type="submit" class="btn btn-success">Book</button>
+                              {% else %}
+                              <button type="submit" class="btn btn-success" disabled>Book</button>
+                              {% endif %}
+
+                          </form>
+                </div>
+            </div>
+    </div>
+    {% endif %}
+  {% endfor %}
+</div>
+</body>
+</html>

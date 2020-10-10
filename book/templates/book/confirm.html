@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+   <meta charset="UTF-8">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <title>Confirm</title>
+</head>
+<body>
+  <h1>Congratulations</h1>
+
+  <a href="/logout"><button class="btn logoutbt mybt">Logout</button></a>
+  <a href="/"><button class="btn homebt mybt">Home</button></a>
+ {% if user.is_authenticated %}
+<div class="row">
+<div class="feed">
+    <h3 style="color: #37a33d;"> Order Completed </h3>
+     </br>
+    <div class="msg">
+            <div class="coln">
+                <h3>{{ room.hotelName }}</h3>
+                {% if room.stars == 5 %}
+                <img src="{% static 'images/hotel5s.png' %}" id="userimg"/>
+                {% elif room.stars == 4.5 %}
+                 <img src="{% static 'images/hotel4-5s.png' %}" id="userimg"/>
+                {% elif room.stars == 4 %}
+                 <img src="{% static 'images/hotel4s.png' %}" id="userimg"/>
+               {% elif room.stars == 3.5 %}
+                 <img src="{% static 'images/hotel3-5s.png' %}" id="userimg"/>
+               {% elif room.stars == 3 %}
+                 <img src="{% static 'images/hotel3s.png' %}" id="userimg"/>
+                {% else %}
+                 <img src="{% static 'images/hotelbooked.png' %}" id="userimg"/>
+                 {% endif %}
+
+                        <h3><i class="fa fa-bed"></i> x {{ room.people}}</h3>
+                        <h3>{% widthratio room.pricePerNight  1 room.days %} $</h3>
+                        <h3 style="color: #ffd900;"> {{ room.averageRatings }} &#9733; </h3>
+
+                </div>
+            </div>
+        </br>
+      <a href="/"><button class="btn mybt">Continue</button></a>
+    </div>
+
+    {% endif %}
+</div>
+</body>
+</html>
