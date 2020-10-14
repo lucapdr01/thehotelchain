@@ -62,14 +62,8 @@ def feed(request):
     else:
         form = BookForm()
 
-        try:
-            days = request.session['days']
-        except:
-            days = 1
-        try:
-            city = request.session['city']
-        except:
-            city = ''
+        days = request.session.get('days', 1)
+        city = request.session.get('city', '')
 
         return render(request, 'book/feed.html', {"days": days, "city": city, 'rooms': rooms, 'form': form})
 
