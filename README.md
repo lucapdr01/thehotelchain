@@ -1,2 +1,3 @@
 # Description
-![](/screenshots/Splash.png)
+
+![img](../../screenshots/Splash.png)
